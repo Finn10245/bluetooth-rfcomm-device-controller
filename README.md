@@ -35,32 +35,32 @@ project/
 
 ```text
 
-┌──────────────────┐
-│        Bluetooth RFCOMM            │
-│   (AF_BLUETOOTH / SOCK_STREAM)     │
-└──────────┬───────┘
-              EPOLL   │
-                      │
-                      ▼
-┌──────────────────┐
-│   RX Buffer        │              │
-│ (STX / LEN / CMD)  │              │
-└──────────┬───────┘
-                      ▼
-┌──────────────────┐
-│  Frame Parser      │              │
-│  CRC16-Modbus      │              │
-└──────────┬───────┘
-                      ▼
-┌──────────────────┐
-│   HSM State Machine                │
-│  (Disconnected / Handshake / Idle) │
-└──────────┬───────┘
-                      ▼
-┌──────────────────┐
-│      GPIO          │              │
-│   (libgpiod)       │              │
-└──────────────────┘
+┌────────────────────────────────────┐
+│        Bluetooth RFCOMM            │ 
+│   (AF_BLUETOOTH / SOCK_STREAM)     │   
+└──────────┬─────────────────────────┘
+   EPOLL   │
+           │
+           ▼
+┌────────────────────────────────────┐
+│   RX Buffer                        │              
+│ (STX / LEN / CMD)                  │              
+└──────────┬─────────────────────────┘
+           ▼
+┌────────────────────────────────────┐
+│  Frame Parser                      │              
+│  CRC16-Modbus                      │              
+└──────────┬─────────────────────────┘
+           ▼
+┌────────────────────────────────────┐
+│   HSM State Machine                |
+│  (Disconnected / Handshake / Idle) |
+└──────────┬─────────────────────────┘
+           ▼
+┌────────────────────────────────────┐
+│      GPIO                          │              
+│   (libgpiod)                       │              
+└──────────┬─────────────────────────┘
 ```
 
 ## 封包格式（Protocol）
@@ -90,8 +90,8 @@ project/
 
 |CMD    |名稱                   |說明                          |
 | :---  | :---                  | :---                         |
-|0x01   |HELLO                  |Client → Server 握手封包     |
-|0x81   |HELLO_ACK              |Server → Client 回應握手     |
+|0x01   |HELLO                  |Client → Server 握手封包      |
+|0x81   |HELLO_ACK              |Server → Client 回應握手      |
 |0x10   |SET_GPIO               |GPIO（payload = 0x00 或 0x01）|
 ---
 
@@ -99,19 +99,19 @@ HSM 狀態圖（State Machine）
 
 ```text
 ┌──────────────┐
-│ DISCONNECTED               │
+│ DISCONNECTED │
 └───────┬──────┘
- EVT_LINK_UP    │
-                ▼
+ EVT_LINK_UP
+        ▼
 ┌──────────────┐
-│  HANDSHAKE   │            │
-│  等待 HELLO  │            │
+│  HANDSHAKE   │
+│  等待 HELLO  │ 
 └───────┬──────┘
- HELLO 收到     │
-                ▼
+ HELLO 收到     
+        ▼
 ┌──────────────┐
-│   CMD_IDLE   │            │
-│  處理命令    │            │
+│   CMD_IDLE   │           
+│  處理命令    │            
 └──────────────┘
 
 ```
