@@ -17,16 +17,23 @@ Bluetooth RFCOMM Device Controller (epoll + HSM + GPIO + CRC16)
 project/
 │
 ├── src/
-│   ├── main.c              # 程式入口
-│   ├── rfcomm_epoll.c      # RFCOMM + epoll server
-│   ├── app_hsm.c           # Hierarchical State Machine
-│   ├── gpio.c              # libgpiod 控制 GPIO
-│   ├── crc16.c             # CRC16-Modbus
-│   ├── log.c               # Log 模組
-│   └── *.h                 # Header files
+│   ├── main.c
+│   ├── rfcomm_epoll.c
+│   ├── app_hsm.c
+│   ├── gpio.c
+│   ├── crc16.c
+│   ├── log.c
+│   └── *.h
 │
-├── README.md               # 專案說明文件
-└── diagrams/               # 架構圖、狀態圖原始檔或圖片
+├── tools/
+│   └── python_client.py
+│
+├── diagrams/
+│   ├── Architecture Diagram.png
+│   └── HSM State Machine.png
+│
+├── LICENSE
+└── README.md
 ```
 
 ---
